@@ -11,7 +11,7 @@ export default function Navbar() {
           <img className='w-[20px]' src='./dropDown.svg'></img>
         </div>
       </div>
-      <div className='h-[80px] bg-[rgba(229,9,20,1)] flex items-center'>
+      <div className='h-[80px] bg-[red] flex items-center'>
         <div className='w-[92%] m-auto flex justify-between items-center'>
           <div className='flex gap-[5.41vw]'>
             <div className='flex flex-col items-center justify-center'>

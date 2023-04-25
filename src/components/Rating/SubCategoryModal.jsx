@@ -10,7 +10,7 @@ export default function SubCategoryModal({hideSubCategoryModal}) {
           <ImCross onClick={hideSubCategoryModal} className='absolute right-[6%] top-[50%] translate-y-[-50%] text-[red] text-2xl cursor-pointer'/>
         </div>
         <div>
-          <select className='border-[1px] border-[red] text-[18px] text-[#959595] w-[24.5vw] h-[45px] rounded-[4px] relative left-[50%] translate-x-[-50%] top-[10vh]'>
+          <select className='border-[1px] border-[red] text-[18px] text-[#959595] min-w-[w-[262px]] w-[24.5vw] h-[45px] rounded-[4px] relative left-[50%] translate-x-[-50%] top-[10vh]'>
             <option disabled selected value={'null'}>Select Sub-category *</option>
             <option value={'Cool Factor'}>Cool Factor</option>
             <option value={'Action'}>Action</option>
@@ -19,6 +19,7 @@ export default function SubCategoryModal({hideSubCategoryModal}) {
             <option value={'Excitement'}>Excitement</option>
             <option value={'Suspense'}>Suspense</option>
           </select>
+          <button className='text-white bg-[red] w-[262px] rounded-[4px] h-[48px] min-w-[160px] mt-[20px] block self-end font-[600] text-[18px] relative left-[50%] translate-x-[-50%] top-[25vh]'>Add</button>
         </div>
       </div>
     </div>

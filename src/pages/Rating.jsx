@@ -8,10 +8,10 @@ export default function Rating() {
 
   const [subCategoryModal, setSubCategoryModal] = useState(false);
 
-  const showSubCategoryModal=()=>{
+  const showSubCategoryModal = () => {
     setSubCategoryModal(true)
   }
-  const hideSubCategoryModal=()=>{
+  const hideSubCategoryModal = () => {
     setSubCategoryModal(false)
 
   }
@@ -19,9 +19,9 @@ export default function Rating() {
   return (
     <>
       {subCategoryModal &&
-        <SubCategoryModal hideSubCategoryModal={hideSubCategoryModal}/>
+        <SubCategoryModal hideSubCategoryModal={hideSubCategoryModal} />
       }
-      <div>
+      <div className='mb-[92px] flex flex-col'>
         <div className='h-[250px]' style={{ backgroundImage: "url('./ratingMain.png')" }}>
           <div className='h-full w-full bg-[rgba(0,0,0,0.9)] flex items-center justify-center'>
             <h1 className=''>Please Rate The Movie</h1>
@@ -38,7 +38,6 @@ export default function Rating() {
             <RangeSelector title={"Finale"} />
             <RangeSelector title={"Feelings"} />
             <button onClick={showSubCategoryModal} className='text-black bg-white w-[13.64vw] rounded-[4px] h-[40px] min-w-[200px] mt-[20px] block font-[400] text-[18px]'>+ Sub categories</button>
-            <button className='text-white bg-[red] w-[8.51vw] rounded-[4px] h-[48px] min-w-[160px] mt-[20px] block self-end font-[600] text-[18px]'>Calculate</button>
           </div>
           <div className='w-[28.22vw] mt-[80px]'>
             <div className='relative'>
@@ -57,6 +56,7 @@ export default function Rating() {
             </div>
           </div>
         </div>
+        <button className='text-white bg-[red] w-[8.51vw] rounded-[4px] h-[48px] min-w-[160px] mt-[20px] block self-center font-[600] text-[18px]'>Calculate</button>
       </div>
     </>
   )
