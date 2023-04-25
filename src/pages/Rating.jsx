@@ -6,12 +6,13 @@ export default function Rating() {
   const [rangeValue, setRangeValue] = useState(50);
 
   const handleRangeChange = (event) => {
-    console.log(event.target.value);
     setRangeValue(event.target.value);
   }
 
+  console.log(rangeValue);
+
   const trackStyle = {
-    '--progress': `${rangeValue}%`,
+    '--progress': `${rangeValue*10}%`,
     background: `linear-gradient(to right, white, white var(--progress), #959595 var(--progress), #959595)`
   };
 
