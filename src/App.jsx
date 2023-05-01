@@ -3,6 +3,7 @@ import Header from './layout/Header'
 import Rating from './pages/Rating'
 import Main from './pages/Main'
 import Signup from './pages/Signup'
+import Signin from './pages/Signin'
 
 function App() {
   return (
