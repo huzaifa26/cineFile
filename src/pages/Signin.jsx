@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Signin() {
   return (
-    <div style={{ background: "url(./LoginMain.png)" }} className='w-full h-screen '>
+    <div style={{ background: "url(./LoginMain.png)",backgroundSize:"cover" }} className='w-full h-screen '>
       <div className='w-full h-full bg-[rgba(7,7,7,0.85)] flex flex-col items-center justify-center'>
         <div className='w-[964px] h-[722px] bg-[rgba(0,0,0,0.6)]'>
           <div className='flex flex-col items-center justify-center mt-[102px]'>

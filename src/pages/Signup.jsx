@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Signup() {
   return (
-    <div style={{ background: "url(./SignupMain.png)" }} className='w-full h-screen '>
+    <div style={{ background: "url(./SignupMain.png)",backgroundSize:"cover" }} className='w-full h-screen '>
       <div className='w-full h-full bg-[rgba(7,7,7,0.4)] flex flex-col items-center justify-center'>
         <div className='w-[1344px] h-[813px] bg-[rgba(0,0,0,0.6)]'>
           <div className='flex flex-col items-center justify-center mt-[61px]'>
