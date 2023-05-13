@@ -1,10 +1,64 @@
-import React from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import React, { useEffect, useRef, useState } from 'react';
 import { RiVideoAddLine } from "react-icons/ri";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getFirestore, doc, updateDoc } from 'firebase/firestore';
+import { db } from '../utils/firebase';
+import { toast } from 'react-toastify';
+
 
 export default function RatingCompletion() {
-  const location=useLocation()
-  console.log(location.state);
+  const location = useLocation();
+  const [movie, setMovie] = useState(location.state.data);
+  const [review, setReview] = useState(location.state.review);
+
+  const navigate=useNavigate()
+
+  const formRef = useRef();
+
+  const [user, setUser] = useState();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    setUser(queryClient.getQueryData(["user"]));
+  }, [queryClient])
+
+  console.log(user);
+
+  const movieReviewMutation = useMutation({
+    mutationFn: async (data) => {
+      const movieRef = doc(db, 'movies', movie.id);
+      const userRef = doc(db, 'users', user.uid);
+      let reviewdArray = user.reviewed ? [...user.reviewed, movie.id] : [movie.id]
+
+      await updateDoc(movieRef, {
+        'reviews': data.reviews
+      });
+      await updateDoc(userRef, {
+        'reviewed': reviewdArray
+      });
+      return true 
+    },
+     onSuccess: (data) => {
+      toast.success("Review Submitted!");
+      navigate("/home");
+    },
+    onError: (error) => {
+      toast.error("Error submitting review");
+    }
+  })
+
+  const formSubmitHandler = () => {
+    let r = { ...review }
+    r.feedback = formRef.current.feedback.value
+    let d = new Date()
+    r.createAt = d.getTime()
+    let m = { ...movie };
+    m.reviews = m.reviews ? [...m.reviews, r] : [r]
+    console.log(m)
+    movieReviewMutation.mutate(m);
+  }
+
   return (
     <div className='mb-[92px] flex flex-col'>
       <div className='h-[250px]' style={{ backgroundImage: "url('./ratingMain.png')" }}>
@@ -23,16 +77,16 @@ export default function RatingCompletion() {
         </div>
       </div>
 
-      <div className='m-auto mt-[59px]'>
-        <textarea className='pl-[29px] pt-[27px] text-black resize-none w-[92.24vw] h-[406px] border-[3px] border-[red] font-[400] text-[24px] leading-[30px] tracking-[2%]' placeholder='Write Review Here....'></textarea>
-      </div>
+      <form onSubmit={formSubmitHandler} ref={formRef} className='m-auto mt-[59px]'>
+        <textarea name='feedback' className='pl-[29px] pt-[27px] text-black resize-none w-[92.24vw] h-[406px] border-[3px] border-[red] font-[400] text-[24px] leading-[30px] tracking-[2%]' placeholder='Write Review Here....'></textarea>
+      </form>
       <div className='w-[92.24vw] m-auto flex justify-center relative mt-[55px]'>
         <div className='flex items-center gap-[20px] absolute left-0'>
-          <RiVideoAddLine className='w-[60px] h-[60px]'/>
+          <RiVideoAddLine className='w-[60px] h-[60px]' />
           <p className='font-[600] text-[28px] leading-[32px]'>Record a Video Review</p>
         </div>
 
-        <button className='w-[262px] place-self-center h-[68px] bg-[red] '>SUBMIT</button>
+        <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center h-[68px] bg-[red] '>SUBMIT</button>
       </div>
     </div>
   )

@@ -20,6 +20,7 @@ export default function Signin() {
       // return { email: result.user.email, uid: result.user.uid };
     },
     onSuccess: (data) => {
+      console.log(data);
       queryClient.setQueryData(['user'], data);
       localStorage.setItem("user", JSON.stringify(data));
       if (data?.firstPasswordChange === false && data?.role === "Basic User") {

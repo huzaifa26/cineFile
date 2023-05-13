@@ -1,9 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import RangeSelector from '../components/Rating/RangeSelector'
 import SubCategoryModal from '../components/Rating/SubCategoryModal'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Rating() {
+
+  const [user, setUser] = useState();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    setUser(queryClient.getQueryData(["user"]));
+  }, [queryClient])
+
   const location=useLocation();
   const [movie,setMovie]=useState(location.state);
   const navigate=useNavigate();
@@ -80,10 +89,20 @@ export default function Rating() {
       rating=rating+obj.rating
     })
     rating=rating/categories.length
-    console.log(rating, categories.length)
+    const existingRating = movie.rating;
+    const totalReviews = movie.numOfRating;
+    const newRating = rating;
+    
+    const newTotalReviews = totalReviews + 1; // Increment the total number of reviews by 1
+    const weightedSum = existingRating * totalReviews + newRating;
+    const newAverageRating = weightedSum / newTotalReviews;
 
-    console.log(rating);
-    navigate('/rating-completion',{state:{...movie,rating,numOfRating:movie.numOfRating+1,categories}});
+    let m={...movie}
+    let review={categories:categories,rating:rating,feedback:'',user:user}
+    m.rating=newAverageRating.toFixed(1)
+    m.numOfRating=movie.numOfRating+1
+
+    navigate('/rating-completion',{state:{data:m,review}});
   }
 
   return (
