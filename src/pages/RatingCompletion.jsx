@@ -1,7 +1,10 @@
 import React from 'react';
 import { RiVideoAddLine } from "react-icons/ri";
+import { useLocation } from 'react-router-dom';
 
 export default function RatingCompletion() {
+  const location=useLocation()
+  console.log(location.state);
   return (
     <div className='mb-[92px] flex flex-col'>
       <div className='h-[250px]' style={{ backgroundImage: "url('./ratingMain.png')" }}>

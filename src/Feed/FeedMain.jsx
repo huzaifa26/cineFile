@@ -27,7 +27,6 @@ export default function FeedMain() {
           </div>
         </div>
       </div>
-
       <div className='flex flex-col gap-[20px] pb-[70px] pt-[20px]'>
         <PostCard></PostCard>
         <PostCard></PostCard>

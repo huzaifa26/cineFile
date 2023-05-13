@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Main() {
   return (
@@ -11,8 +12,12 @@ export default function Main() {
         </div>
 
         <div className='flex flex-col gap-[32px]'>
-          <button className='w-[262px] h-[48px] rounded-[4px] bg-[rgba(229,9,20,1)] text-white border-[1px] border-black font-[400] text-[20px] leading-[23.44px]'>Sign In</button>
-          <button className='w-[262px] h-[48px] rounded-[4px] bg-[rgba(229,9,20,1)] text-white border-[1px] border-black font-[400] text-[20px] leading-[23.44px]'>Sign Up</button>
+          <Link to="/signin">
+            <button className='w-[262px] h-[48px] rounded-[4px] bg-[rgba(229,9,20,1)]  border-[1px] border-black font-[400] text-[20px] leading-[23.44px]'>Sign In</button>
+          </Link>
+          <Link to="/signup">
+            <button className='w-[262px] h-[48px] rounded-[4px] bg-[rgba(229,9,20,1)] border-[1px] border-black font-[400] text-[20px] leading-[23.44px]'>Sign Up</button>
+          </Link>
         </div>
       </div>
     </div>

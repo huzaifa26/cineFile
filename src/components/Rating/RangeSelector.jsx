@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 
-export default function RangeSelector({ title }) {
+export default function RangeSelector({ title,updateRating }) {
   const [rangeValue, setRangeValue] = useState(10);
 
   const handleRangeChange = (event) => {
     setRangeValue(event.target.value);
+    updateRating(title,event.target.value);
   }
-
-  console.log(rangeValue);
 
   const trackStyle = {
     '--progress': `${rangeValue * 10}%`,
