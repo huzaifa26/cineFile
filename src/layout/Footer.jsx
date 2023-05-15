@@ -2,10 +2,10 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <div className='w-full min-h-[430px] bg-[red]'>
-      <div className='w-[92%] h-full m-auto flex xsm:flex-wrap xsm:gap-[30px] justify-between items-center pb-[10px]'>
+    <div className='w-full min-h-[430px] bg-[red] pt-[48px] pb-[10px]'>
+      <div className='w-[92%] h-full m-auto flex flex-wrap xsm:gap-[30px] sm:gap-[30px] justify-between '>
         <div>
-          <h3 className='text-[28px] font-[700] leading-[56px]'>CineFIle</h3>
+          <h3 className='text-[32px] font-[700] leading-[56px]'>CineFIle</h3>
           <div className='mt-[16px]'>
             <h4 className='text-[20px] font-[500] leading-[23.44px] mb-[10px]'>Address</h4>
             <p className='w-[255.36px] text-[16px]'>Lorem ipsum dolor sit amet, consectetuer adipiscing Lorem ipsum dolor sit amet, consectetuer adipiscing </p>
@@ -16,7 +16,7 @@ export default function Footer() {
             <p className='w-[255.36px] text-[16px]'>10.00 - 18.00</p>
           </div>
         </div>
-        <div>
+        <div className='pt-[20px]'>
           <h4 className='text-[24px] font-[600] leading-[23.44px] mb-[10px]'>Get in touch</h4>
           <div className='bg-white w-[60px] h-[1px] my-[14px]'></div>
           <div className='flex flex-col gap-[15px]'>
@@ -43,7 +43,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div>
+        <div className='pt-[20px]'>
           <h4 className='text-[24px] font-[600] leading-[23.44px] mb-[10px]'>Useful Link</h4>
           <div className='bg-white w-[60px] h-[1px] my-[14px]'></div>
           <p className='leading-[32px]'>Lorem ipsum</p>
@@ -55,7 +55,7 @@ export default function Footer() {
           <p className='leading-[32px]'>Lorem ipsum</p>
           <p className='leading-[32px]'>Lorem ipsum</p>
         </div>
-        <div>
+        <div className='pt-[20px]'>
           <h4 className='text-[24px] font-[600] leading-[23.44px] mb-[10px]'>Campaign</h4>
           <div className='bg-white w-[60px] h-[1px] my-[14px]'></div>
           <p className='leading-[32px]'>Lorem ipsum</p>

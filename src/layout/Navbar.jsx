@@ -1,15 +1,40 @@
-import React from 'react'
-import { BsStar } from "react-icons/bs"
-import { NavLink } from 'react-router-dom'
+import React, { useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 export default function Navbar() {
+  const [showOptions, setShowOptions] = useState(false)
+  const navigate = useNavigate()
+
+  const logoutHander = () => {
+    localStorage.removeItem("user");
+    navigate('/')
+  }
+
   return (
     <div>
       <div className='w-[92%] xsm:w-[99%] m-auto h-[100px] flex items-center justify-between'>
         <img className='w-[180px]' src='./Logo.svg'></img>
-        <div className='flex gap-[1.85vw]'>
+        <div className='flex gap-[1.85vw] relative'>
           <img className='w-[60px]' src='./profilePic.svg'></img>
-          <img className='w-[20px]' src='./dropDown.svg'></img>
+          <img className='w-[20px] cursor-pointer' onClick={() => setShowOptions(!showOptions)} src='./dropDown.svg'></img>
+          {showOptions &&
+            <>
+              <div onClick={(e) => e.stopPropagation()} className="transition-all  border-solid border-b-[#525252] border-b-[12px] border-x-transparent border-x-[12px] border-t-0 absolute z-[100000] top-[calc(100%+3px)] right-[2px]"></div>
+              <div onClick={(e) => e.stopPropagation()} className='w-[18.333333333333332vw]  overflow-hidden min-w-[280px] bg-white dark:text-white text-black  dark:bg-[#525252] absolute z-[100000] rounded-[10px] top-[calc(100%+15px)] right-[-12px]'>
+                <div className='m-auto divide-y-[1px] divide-[rgba(255,255,255,0.5)] flex w-full flex-col '>
+                  <div className='cursor-pointer hover:font-[500] hover:bg-[#cccccc21]'>
+                    <div className='py-[14.86px] text-custom-18 px-[18px]'>
+                      Profile
+                    </div>
+                  </div>
+                  <div onClick={logoutHander} className='cursor-pointer hover:font-[500] hover:bg-[#cccccc21]'>
+                    <div className='py-[14.86px] text-custom-18 px-[18px]'>
+                      Logout
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>}
         </div>
       </div>
       <div className='h-[80px] bg-[red] flex items-center'>

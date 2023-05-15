@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from "react-router-dom";
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from '../utils/firebase';
 import { doc, getDoc } from "firebase/firestore";
+import React, { useRef, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import Loader from './../../public/WhiteLoading.svg'
+import { auth, db } from '../utils/firebase';
+import Loader from './../../public/WhiteLoading.svg';
 
 export default function Signin() {
   const navigate = useNavigate();
@@ -22,15 +22,22 @@ export default function Signin() {
       // return { email: result.user.email, uid: result.user.uid };
     },
     onSuccess: (data) => {
-      console.log(data);
-      queryClient.setQueryData(['user'], data);
-      localStorage.setItem("user", JSON.stringify(data));
-      if (data?.firstPasswordChange === false && data?.role === "Basic User") {
-        setShowPasswordChangeModal(true);
-        return
+      if (data.isBlocked) {
+        toast.error('Your access has been blocked. Please contact the team')
+        if (localStorage.getItem("user")) {
+          localStorage.removeItem("user");
+        }
       }
-      toast.success("Login successful!");
-      navigate("/home");
+      else {
+        queryClient.setQueryData(['user'], data);
+        localStorage.setItem("user", JSON.stringify(data));
+        if (data?.firstPasswordChange === false && data?.role === "Basic User") {
+          setShowPasswordChangeModal(true);
+          return
+        }
+        toast.success("Login successful!");
+        navigate("/home");
+      }
     },
     onError: (error) => {
       toast.error("Wrong credentials");
@@ -79,7 +86,7 @@ export default function Signin() {
                 <p className='font-[600] text-[14px] leading-[16.41px] text-[red]'>Forgot Password?</p>
               </div>
               <div>
-                <button className='w-[262px] h-[48px] rounded-[4px] bg-[rgba(229,9,20,1)] text-white border-[1px] border-black font-[400] text-[20px] leading-[23.44px] mt-[19.22px]'>{loginMutation.isLoading ? <img src={Loader} className='w-[20px] h-[20px] m-auto' /> : 'Sign In'}</button>
+                <button disabled={loginMutation.isLoading} className='w-[262px] h-[48px] rounded-[4px] bg-[rgba(229,9,20,1)] text-white border-[1px] border-black font-[400] text-[20px] leading-[23.44px] mt-[19.22px]'>{loginMutation.isLoading ? <img src={Loader} className='w-[20px] h-[20px] m-auto' /> : 'Sign In'}</button>
                 <p className='text-[14px] text-center leading-[16.41px] font-[400] mt-[18px]'>Don’t have an account? <span className='text-[red] cursor-pointer hover:underline' onClick={() => navigate('/signup')}>Sign Up</span></p>
               </div>
             </form>

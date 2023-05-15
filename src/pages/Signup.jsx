@@ -1,12 +1,12 @@
-import React, { useRef } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { auth, db } from "../utils/firebase"
-import { toast } from 'react-toastify';
+import React, { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
+import { auth, db } from "../utils/firebase";
+import Loader from './../../public/WhiteLoading.svg';
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('First Name is required'),
@@ -17,7 +17,6 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address').required('Email is required'),
   username: Yup.string().required('User name is required'),
   password: Yup.string().required('Password is required'),
-  contactNumber: Yup.string().required('Contact Number is required'),
 });
 
 export default function Signup() {
@@ -128,7 +127,7 @@ export default function Signup() {
                 </div>
               </div>
               <div>
-                <button className='w-[262px] h-[48px] rounded-[4px] bg-[rgba(229,9,20,1)] text-white border-[1px] border-black font-[400] text-[20px] leading-[23.44px] xsm:mt-[15px] mt-[4.947368421052632vh]'>{signupMutation.isLoading ? <img src={Loader} className='w-[20px] h-[20px] m-auto' /> : 'Sign Up'}</button>
+                <button disabled={signupMutation.isLoading} className='w-[262px] h-[48px] rounded-[4px] bg-[rgba(229,9,20,1)] text-white border-[1px] border-black font-[400] text-[20px] leading-[23.44px] xsm:mt-[15px] mt-[4.947368421052632vh]'>{signupMutation.isLoading ? <img src={Loader} className='w-[20px] h-[20px] m-auto' /> : 'Sign Up'}</button>
                 <p className='text-[14px] text-center leading-[16.41px] font-[400] mt-[1.894736842105263vh] xsm:mt-[5px]'>Already have an account? <span className='text-[red]'><Link to={'/signin'}>Login</Link></span></p>
               </div>
             </form>
