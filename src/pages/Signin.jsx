@@ -14,8 +14,8 @@ export default function Signin() {
   const loginMutation = useMutation({
     mutationFn: async (data) => {
       const result = await signInWithEmailAndPassword(auth, data.email, data.password);
-      const userRef=doc(db,"users",result.user.uid);
-      const user=await getDoc(userRef);
+      const userRef = doc(db, "users", result.user.uid);
+      const user = await getDoc(userRef);
       return user.data()
       // return { email: result.user.email, uid: result.user.uid };
     },
@@ -45,9 +45,9 @@ export default function Signin() {
   }
 
   return (
-    <div style={{ background: "url(./LoginMain.png)",backgroundSize:"cover" }} className='w-full h-screen '>
+    <div style={{ background: "url(./LoginMain.png)", backgroundSize: "cover" }} className='w-full h-screen '>
       <div className='w-full h-full bg-[rgba(7,7,7,0.85)] flex flex-col items-center justify-center'>
-        <div className='w-[964px] h-[76vh] bg-[rgba(0,0,0,0.6)]'>
+        <div className='w-[50.208333333333336vw] xsm:min-w-[90%] sm:min-w-[500px] h-[76vh] bg-[rgba(0,0,0,0.6)]'>
           <div className='flex flex-col items-center justify-center mt-[102px]'>
             <img className='w-[304px]' src='./MainLogo.svg' />
           </div>
@@ -58,19 +58,19 @@ export default function Signin() {
                 <div className='flex flex-col gap-[15px]'>
                   <div className='flex flex-col gap-[9px]'>
                     <label className='font-[16.41px] text-[14px] leading-[16.41px]'>Email</label>
-                    <input name='email' className='w-[368px] pl-[10px] h-[38px] rounded-[4px] bg-white border-[1px] border-[red] ' />
+                    <input name='email' className='w-[19.166666666666668vw] min-w-[290px] pl-[10px] h-[38px] rounded-[4px] bg-white border-[1px] border-[red] ' />
                   </div>
                   <div className='flex flex-col gap-[9px]'>
                     <label className='font-[16.41px] text-[14px] leading-[16.41px]'>Password</label>
-                    <input name='password' className='w-[368px] pl-[10px] h-[38px] rounded-[4px] bg-white border-[1px] border-[red] ' />
+                    <input type='password' name='password' className='w-[19.166666666666668vw] min-w-[290px] pl-[10px] h-[38px] rounded-[4px] bg-white border-[1px] border-[red] ' />
                   </div>
                 </div>
               </div>
-              <div className='flex justify-between items-center w-[368px] mt-[9.74px]'>
+              <div className='flex justify-between items-center w-[19.166666666666668vw] min-w-[290px] mt-[9.74px]'>
                 <div className='flex gap-[4px]'>
                   <label class="relative inline-flex items-center cursor-pointer w-[31.32px] h-[14.04px]">
-                    <input type="checkbox" value="" class="sr-only peer"/>
-                      <div class="w-[30.32px] h-[14.04px] bg-white border-[1px] border-[red] outline-none peer-focus:outline-none peer-focus:ring-4 rounded-full peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[0px] after:left-[1px] after:bg-red-500 after:border-red-500 after:border after:rounded-full after:h-[14.04px] after:w-[14.04px] after:transition-all  peer-checked:bg-white  peer-checked:border-red-500"></div>
+                    <input type="checkbox" value="" class="sr-only peer" />
+                    <div class="w-[30.32px] h-[14.04px] bg-white border-[1px] border-[red] outline-none peer-focus:outline-none peer-focus:ring-4 rounded-full peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[0px] after:left-[1px] after:bg-red-500 after:border-red-500 after:border after:rounded-full after:h-[14.04px] after:w-[14.04px] after:transition-all  peer-checked:bg-white  peer-checked:border-red-500"></div>
                   </label>
                   <p className='font-[400] text-[14px] leading-[16.41px]'>Remember Me</p>
                 </div>
