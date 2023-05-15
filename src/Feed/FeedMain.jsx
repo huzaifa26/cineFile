@@ -7,6 +7,12 @@ import { addDoc, collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { db, storage } from '../utils/firebase';
 import { toast } from 'react-toastify';
 
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object().shape({
+  content: Yup.string().required('Cannot upload empty post'),
+});
+
 
 export default function FeedMain() {
 
@@ -17,20 +23,17 @@ export default function FeedMain() {
     setUser(queryClient.getQueryData(["user"]));
   }, [queryClient])
 
-  
-  const postsQuery=useQuery(['posts'],async()=>{
+  const postsQuery = useQuery(['posts'], async () => {
     try {
       const postsRef = collection(db, 'posts');
       const q = query(postsRef, orderBy('createdAt', 'desc'));
       const querySnapshot = await getDocs(q);
-  
+
       const posts = [];
       querySnapshot.forEach((doc) => {
         posts.push({ id: doc.id, ...doc.data() });
       });
 
-      console.log(posts);
-  
       return posts;
     } catch (error) {
       console.error('Error retrieving posts:', error);
@@ -81,11 +84,19 @@ export default function FeedMain() {
       content: formRef.current.content.value,
       user: user,
       createdAt: nowTime,
-      likeCount:0,
-      likedBy:[],
-      comments:[]
+      likeCount: 0,
+      likedBy: [],
+      comments: []
     }
-    mutation.mutate(data);
+    try {
+      await validationSchema.validate(data, { abortEarly: false });
+      mutation.mutate(data);
+    } catch (errors) {
+      console.error(errors.inner[0]);
+      toast.dismiss();
+      toast.error(errors.inner[0].message + "");
+    }
+
   }
 
   return (
@@ -114,7 +125,7 @@ export default function FeedMain() {
             </div>
             {
               mutation.isLoading ?
-                <button type='button' className='bg-[red] h-[50px] w-[180px] font-[400] text-[20px] leading-[32px]'><img className='w-[30px] m-auto' src='./WhiteLoading.svg'/></button>
+                <button type='button' className='bg-[red] h-[50px] xsm:w-[9.375vw] min-w-[80px] w-[180px] font-[400] text-[20px] leading-[32px]'><img className='w-[30px] m-auto' src='./WhiteLoading.svg' /></button>
                 :
                 <button className='bg-[red] h-[50px] xsm:w-[9.375vw] min-w-[80px] w-[180px] font-[400] text-[20px] leading-[32px]'>Post</button>
             }
@@ -122,7 +133,7 @@ export default function FeedMain() {
         </form>
       </div>
       <div className='flex flex-col gap-[1.042vw] pb-[70px] pt-[20px]'>
-        {postsQuery?.data?.length === 0 ? <h1 className='px-[73px]'>No posts available</h1> :postsQuery?.data?.map((post)=>{
+        {postsQuery?.data?.length === 0 ? <h1 className='px-[3.802vw]'>No posts available</h1> : postsQuery?.data?.map((post) => {
           return <PostCard post={post}></PostCard>
         })}
       </div>

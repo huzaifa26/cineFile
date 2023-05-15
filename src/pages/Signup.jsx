@@ -17,7 +17,6 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address').required('Email is required'),
   username: Yup.string().required('User name is required'),
   password: Yup.string().required('Password is required'),
-  contactNumber: Yup.string().required('Contact Number is required'),
 });
 
 export default function Signup() {
@@ -59,6 +58,7 @@ export default function Signup() {
       email: formRef.current.email.value,
       username: formRef.current.username.value,
       password: formRef.current.password.value,
+      isBlocked: false
     }
 
     try {

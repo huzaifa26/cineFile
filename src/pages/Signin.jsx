@@ -22,7 +22,9 @@ export default function Signin() {
     onSuccess: (data) => {
       console.log(data);
       queryClient.setQueryData(['user'], data);
+
       localStorage.setItem("user", JSON.stringify(data));
+      
       if (data?.firstPasswordChange === false && data?.role === "Basic User") {
         setShowPasswordChangeModal(true);
         return
