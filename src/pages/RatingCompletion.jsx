@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { RiVideoAddLine } from "react-icons/ri";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../utils/firebase';
 import { toast } from 'react-toastify';
+import { db } from '../utils/firebase';
 
 
 export default function RatingCompletion() {
   const location = useLocation();
   const [movie, setMovie] = useState(location.state.data);
   const [review, setReview] = useState(location.state.review);
-
+  console.log(location.state.data);
   const navigate = useNavigate()
 
   const formRef = useRef();
@@ -71,10 +71,10 @@ export default function RatingCompletion() {
 
       <div>
         <div className='w-[542px] pt-2 m-auto sm:w-[80%] xsm:w-[90%]'>
-          <img className='w-[542px] h-[476px]' src='./ratingMoviePoster.png' />
+          <img className='w-[542px] h-[476px]' src={movie.image} />
           <div className='flex justify-between mt-[10px] xsm:px-[10px] sm:px-[5px]'>
-            <p className='text-[32px] font-[600] leading-[36px]'>Joker</p>
-            <p className='text-[32px] font-[600] leading-[36px]'>Score</p>
+            <p className='text-[32px] font-[600] leading-[36px]'>{movie.name}</p>
+            <p className='text-[32px] font-[600] leading-[36px]'>Score : {movie.rating}</p>
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@ export default function RatingCompletion() {
         {movieReviewMutation.isLoading ?
           <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center h-[68px] bg-[red] '><img className='w-[30px] m-auto' src='./WhiteLoading.svg' /></button>
           :
-          <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center  h-[68px] bg-[red] '>SUBMIT</button>
+          <button type='submit' onClick={formSubmitHandler} className='w-[13.645833333333334vw] min-w-[100px] place-self-center  h-[68px] bg-[red] rounded-[4px]'>SUBMIT</button>
         }
       </div>
     </div>

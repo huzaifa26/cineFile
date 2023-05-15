@@ -135,7 +135,7 @@ export default function Rating() {
               <img className='absolute right-[23px] top-[50%] translate-y-[-50%] w-[25px] cursor-pointer' src='./search.svg' />
             </div>
             <div className='flex flex-col justify-center items-center mt-[20px] xsm:mt-[30px] sm:mt-[30px]'>
-              <img className='w-[100%]' src='./ratingMoviePoster.png' />
+              <img className='w-[100%]' src={movie?.image} />
               <div className='w-full xsm:mt-[10px] sm:mt-[10px]'>
                 <div className='flex justify-between px-2 mt-[10px]'>
                   <p className='text-[18px] font-[600] leading-[30px]'>{movie?.name}</p>
