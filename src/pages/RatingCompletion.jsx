@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useEffect, useRef, useState } from 'react';
 import { RiVideoAddLine } from "react-icons/ri";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getFirestore, doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../utils/firebase';
 import { toast } from 'react-toastify';
 
@@ -32,11 +32,14 @@ export default function RatingCompletion() {
       let reviewdArray = user.reviewed ? [...user.reviewed, movie.id] : [movie.id]
 
       await updateDoc(movieRef, {
-        'reviews': data.reviews
+        'reviews': data.reviews,
+        'rating': data.rating,
+        'numOfRating': data.numOfRating,
       });
       await updateDoc(userRef, {
         'reviewed': reviewdArray
       });
+      queryClient.invalidateQueries(['movies']);
       return true 
     },
      onSuccess: (data) => {
@@ -55,7 +58,6 @@ export default function RatingCompletion() {
     r.createAt = d.getTime()
     let m = { ...movie };
     m.reviews = m.reviews ? [...m.reviews, r] : [r]
-    console.log(m)
     movieReviewMutation.mutate(m);
   }
 
@@ -85,8 +87,11 @@ export default function RatingCompletion() {
           <RiVideoAddLine className='w-[60px] h-[60px]' />
           <p className='font-[600] text-[28px] leading-[32px]'>Record a Video Review</p>
         </div>
-
+        {movieReviewMutation.isLoading?
+        <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center h-[68px] bg-[red] '><img className='w-[30px] m-auto' src='./WhiteLoading.svg'/></button>
+        :
         <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center h-[68px] bg-[red] '>SUBMIT</button>
+        }
       </div>
     </div>
   )

@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <div className='w-full h-[430px] bg-[red]'>
+    <div className='w-full min-h-[430px] bg-[red]'>
       <div className='w-[92%] h-full m-auto flex justify-between items-center'>
         <div>
           <h3 className='text-[28px] font-[700] leading-[56px]'>CineFIle</h3>

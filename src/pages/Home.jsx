@@ -5,36 +5,91 @@ import { db } from '../utils/firebase';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
-  const [user, setUser] = useState();
   const queryClient = useQueryClient();
+  const [user, setUser] = useState(queryClient.getQueryData(['user']));
+  const [recentMovie, setRecentMovie] = useState();
+  const [sugestedMovie, setSugestedMovie] = useState();
 
   useEffect(() => {
     setUser(queryClient.getQueryData(["user"]));
-  }, [queryClient])
+  }, [queryClient,location.pathname])
 
-  const moviesQuery = useQuery(['movies'], fetchData);
+  useEffect(() => {
+    const unsubscribe = queryClient.getQueryCache().subscribe(() => {
+      setRecentMovie(() => {
+        let user = queryClient.getQueryData(["user"])
+        let movieArr = queryClient.getQueryData(['movies'])?.filter((movie) => {
+          if (user?.reviewed.includes(movie.id)) {
+            return movie
+          }
+        })
+        console.log(movieArr)
+        return movieArr
+      })
 
-  async function fetchData() {
-    let result = await getDocs(collection(db, "movies"))
-    result = result.docs.map((doc) => {
-      return { id: doc.id, ...doc.data() }
+      setSugestedMovie(() => {
+        let mov = queryClient.getQueryData(['movies']) || [];
+        const m = [...mov]
+
+        m?.sort((a, b) => {
+          if (a.rating !== b.rating) {
+            return b.rating - a.rating;
+          } else {
+            return b.numOfRatings - a.numOfRatings;
+          }
+        });
+        console.log(m)
+        return m
+      })
+    });
+
+    setRecentMovie(() => {
+      let user = queryClient.getQueryData(["user"])
+      let movieArr = queryClient.getQueryData(['movies'])?.filter((movie) => {
+        if (user?.reviewed.includes(movie.id)) {
+          return movie
+        }
+      })
+      console.log(movieArr)
+      return movieArr
     })
 
-    console.log(result);
+    setSugestedMovie(() => {
+      let mov = queryClient.getQueryData(['movies']) || [];
+      const m = [...mov]
 
-    return result
-  }
+      m?.sort((a, b) => {
+        if (a.rating !== b.rating) {
+          return b.rating - a.rating;
+        } else {
+          return b.numOfRatings - a.numOfRatings;
+        }
+      });
+      console.log(m)
+      return m
+    })
+
+    return () => {
+      unsubscribe();
+    };
+  }, [queryClient,user])
+
+  const [recentSeeAll, setRecentSeeAll] = useState(false);
+  const [sugestedSeeAll, setSugestedSeeAll] = useState(false);
 
   return (
     <div className='w-[92%] m-auto pb-[54px]'>
       <div>
         <div className='flex justify-between mt-[70px] mb-[30px]'>
           <h1 className='font-[700] text-[32px] h-[59px] leading-[36px] tracking-[2%] text-white border-[red] border-b-[5px]'>Recently Watched Movies</h1>
-          <p className='font-[700] text-[32px] leading-[36px] tracking-[2%] text-[red] h-[40px] border-[red] border-b-[5px]'>See all</p>
+          <p onClick={()=>setRecentSeeAll(!recentSeeAll)} className='cursor-pointer font-[700] text-[32px] leading-[36px] tracking-[2%] text-[red] h-[40px] border-[red] border-b-[5px]'>{recentSeeAll?'See less':'See all'}</p>
         </div>
-        <div className='flex gap-[73px]'>
+        <div className='grid grid-cols-3 gap-[73px]'>
 
-          {moviesQuery?.data?.map((movie) => {
+          {recentMovie?.map((movie, index) => {
+            if (index > 2 && recentSeeAll === false) {
+              return
+            }
             var minutes = movie?.movieTime;
             var hours = Math.floor(minutes / 60);
             var remainingMinutes = minutes % 60;
@@ -42,7 +97,7 @@ export default function Home() {
             return (
               <Link to={'/rating'} state={movie}>
                 <div className='w-[542px]'>
-                  <img className='aspect-[10px]' src={movie.image} />
+                  <img className='w-[28.229vw] object-cover' src={movie.image} />
                   <div className='flex justify-between mt-[22px] mb-[10px]'>
                     <h3 className='font-[600] text-[28px] leading-[32px] tracking-[2%]'>{movie.name}</h3>
                     <p className='font-[600] text-[28px] leading-[32px] tracking-[2%]' >{`${movie.rating} (${movie.numOfRating})`}</p>
@@ -57,17 +112,30 @@ export default function Home() {
       <div>
         <div className='flex justify-between mt-[54px]'>
           <h1 className='font-[700] text-[32px] h-[59px] leading-[36px] tracking-[2%] text-white border-[red] border-b-[5px]'>Movies Suggestions</h1>
-          <p className='font-[700] text-[32px] leading-[36px] tracking-[2%] text-[red] h-[40px] underline'>See all</p>
+          <p onClick={()=>setSugestedSeeAll(!sugestedSeeAll)} className='font-[700] text-[32px] leading-[36px] tracking-[2%] text-[red] h-[40px] underline'>{sugestedSeeAll?'See less':'See all'}</p>
         </div>
-        <div className='flex gap-[73px] mt-[30px]'>
-          <div className='w-[542px]'>
-            <img src='./homeSuggestion1.png' />
-            <div className='flex justify-between mt-[22px] mb-[10px]'>
-              <h3 className='font-[600] text-[28px] leading-[32px] tracking-[2%]'>Movie Name</h3>
-              <p className='font-[600] text-[28px] leading-[32px] tracking-[2%]'  >Score</p>
-            </div>
-            <p className='text-[rgba(149,149,149,1)]'>1hr 15min  |  23 mar, 2023</p>
-          </div>
+        <div className='grid grid-cols-3 gap-[73px] mt-[30px]'>
+          {sugestedMovie?.map((movie,index) => {
+            if (index > 2 && sugestedSeeAll === false) {
+              return null
+            }
+            var minutes = movie?.movieTime;
+            var hours = Math.floor(minutes / 60);
+            var remainingMinutes = minutes % 60;
+
+            return (
+              <Link to={'/rating'} state={movie}>
+                <div className='w-[542px]'>
+                  <img className='w-[28.229vw] object-cover' src={movie.image} />
+                  <div className='flex justify-between mt-[22px] mb-[10px]'>
+                    <h3 className='font-[600] text-[28px] leading-[32px] tracking-[2%]'>{movie.name}</h3>
+                    <p className='font-[600] text-[28px] leading-[32px] tracking-[2%]' >{`${movie.rating} (${movie.numOfRating})`}</p>
+                  </div>
+                  <p className='text-[rgba(149,149,149,1)]'>{`${hours}hr ${remainingMinutes}min | ${movie.releaseDate}`}</p>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </div>
     </div>
