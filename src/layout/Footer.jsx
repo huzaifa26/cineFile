@@ -3,12 +3,12 @@ import React from 'react'
 export default function Footer() {
   return (
     <div className='w-full min-h-[430px] bg-[red]'>
-      <div className='w-[92%] h-full m-auto flex justify-between items-center'>
+      <div className='w-[92%] h-full m-auto flex xsm:flex-wrap xsm:gap-[30px] justify-between items-center pb-[10px]'>
         <div>
           <h3 className='text-[28px] font-[700] leading-[56px]'>CineFIle</h3>
           <div className='mt-[16px]'>
             <h4 className='text-[20px] font-[500] leading-[23.44px] mb-[10px]'>Address</h4>
-            <p className='w-[13.3vw] text-[16px]'>Lorem ipsum dolor sit amet, consectetuer adipiscing Lorem ipsum dolor sit amet, consectetuer adipiscing </p>
+            <p className='w-[255.36px] text-[16px]'>Lorem ipsum dolor sit amet, consectetuer adipiscing Lorem ipsum dolor sit amet, consectetuer adipiscing </p>
           </div>
           <div className='mt-[16px]'>
             <h4 className='text-[20px] font-[500] leading-[23.44px] mb-[10px]'>Office Hour</h4>
