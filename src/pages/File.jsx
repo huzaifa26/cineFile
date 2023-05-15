@@ -75,11 +75,11 @@ export default function File() {
   return (
     <div className='w-[92%] m-auto pb-[54px]'>
       <div>
-        <div className='flex justify-between mt-[70px] mb-[30px]'>
-          <h1 className='font-[700] text-[32px] h-[59px] leading-[36px] tracking-[2%] text-white border-[red] border-b-[5px]'>Rated Movies</h1>
-          <p onClick={()=>setRecentSeeAll(!recentSeeAll)} className='cursor-pointer font-[700] text-[32px] leading-[36px] tracking-[2%] text-[red] h-[40px] border-[red] border-b-[5px] select-none'>{recentSeeAll?'See less':'See all'}</p>
+        <div className='flex justify-between items-center mt-[54px]'>
+          <h1 className='font-[700] text-custom-32 h-[59px] leading-[36px] tracking-[2%] text-white border-[red] border-b-[5px]'>Rated Movies</h1>
+          <p onClick={() => setRecentSeeAll(!recentSeeAll)} className='cursor-pointer font-[700] text-custom-32 leading-[36px] tracking-[2%] text-[red] h-[40px] border-[red] border-b-[5px]'>{recentSeeAll ? 'See less' : 'See all'}</p>
         </div>
-        <div className='grid grid-cols-3 gap-[73px]'>
+        <div className='grid grid-cols-3 xsm:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xsm:gap-y-[20px] xsm:px-[10px] gap-[73px] mt-[30px]'>
           {ratedMovie?.map((movie) => {
             var minutes = movie?.movieTime;
             var hours = Math.floor(minutes / 60);
@@ -87,8 +87,8 @@ export default function File() {
 
             return (
               <Link to={'/rating'} state={movie}>
-                <div className='w-[542px]'>
-                  <img className='w-[28.229vw] object-cover' src={movie.image} />
+                <div>
+                  <img className='w-full object-cover' src={movie.image} />
                   <div className='flex justify-between mt-[22px] mb-[10px]'>
                     <h3 className='font-[600] text-[28px] leading-[32px] tracking-[2%]'>{movie.name}</h3>
                     <p className='font-[600] text-[28px] leading-[32px] tracking-[2%]' >{`${movie.rating} (${movie.numOfRating})`}</p>
@@ -101,19 +101,19 @@ export default function File() {
         </div>
       </div>
       <div>
-        <div className='flex justify-between mt-[54px]'>
-          <h1 className='font-[700] text-[32px] h-[59px] leading-[36px] tracking-[2%] text-white border-[red] border-b-[5px]'>Want to Watch</h1>
-          <p onClick={()=>setSugestedSeeAll(!sugestedSeeAll)} className='cursor-pointer font-[700] text-[32px] leading-[36px] tracking-[2%] text-[red] h-[40px] border-[red] border-b-[5px] select-none'>{sugestedSeeAll?'See less':'See all'}</p>
+        <div className='flex justify-between items-center mt-[54px]'>
+          <h1 className='font-[700] text-custom-32 h-[59px] leading-[36px] tracking-[2%] text-white border-[red] border-b-[5px]'>Want to Watch</h1>
+          <p onClick={() => setSugestedSeeAll(!sugestedSeeAll)} className='cursor-pointer font-[700] text-custom-32 leading-[36px] tracking-[2%] text-[red] h-[40px] border-[red] border-b-[5px]'>{sugestedSeeAll ? 'See less' : 'See all'}</p>
         </div>
-        <div className='grid grid-cols-3 gap-[73px] mt-[30px]'>
+        <div className='grid grid-cols-3 xsm:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xsm:gap-y-[20px] xsm:px-[10px] gap-[73px] mt-[30px]'>
           {wantToWatch?.map((movie) => {
             var minutes = movie?.movieTime;
             var hours = Math.floor(minutes / 60);
             var remainingMinutes = minutes % 60;
 
             return (
-              <div className='w-[542px]'>
-                <img className='w-[28.229vw] object-cover' src={movie.image} />
+              <div >
+                <img className='w-full object-cover' src={movie.image} />
                 <div className='flex justify-between mt-[22px] mb-[10px]'>
                   <h3 className='font-[600] text-[28px] leading-[32px] tracking-[2%]'>{movie.name}</h3>
                   <p className='font-[600] text-[28px] leading-[32px] tracking-[2%]' >{`${movie.rating} (${movie.numOfRating})`}</p>

@@ -114,13 +114,13 @@ export default function Rating() {
         <SubCategoryModal dropDownValues={dropDownValues} getValue={getValue} hideSubCategoryModal={hideSubCategoryModal} />
       }
       <div className='mb-[92px] flex flex-col'>
-        <div className='h-[250px]' style={{ backgroundImage: "url('./ratingMain.png')" }}>
+        <div className='h-[250px] xsm:h-[80px] sm:h-[80px]' style={{ backgroundImage: "url('./ratingMain.png')" }}>
           <div className='h-full w-full bg-[rgba(0,0,0,0.9)] flex items-center justify-center'>
-            <h1 className=''>Please Rate The Movie</h1>
+            <h1 className='text-custom-30'>Please Rate The Movie</h1>
           </div>
         </div>
 
-        <div className='w-[92%] m-auto mt-[34px] flex justify-between'>
+        <div className='w-[92%] m-auto mt-[34px] xsm:mt-0 sm:mt-0 flex xsm:flex-col-reverse xsm:items-center sm:items-center sm:flex-col-reverse xsm: justify-between'>
           <div className='flex flex-col'>
             {categories.map((category) => {
               return (
@@ -129,14 +129,14 @@ export default function Rating() {
             })}
             <button onClick={showSubCategoryModal} className='text-black bg-white w-[13.64vw] rounded-[4px] h-[40px] min-w-[200px] mt-[20px] block font-[400] text-[18px]'>+ Sub categories</button>
           </div>
-          <div className='w-[28.22vw] mt-[80px]'>
+          <div className='w-[28.220000000000006vw] sm:w-[80%] xsm:w-[90%] mt-[80px] xsm:mt-[20px] sm:mt-[20px]'>
             <div className='relative'>
               <input className='h-[40px] w-[100%] px-[24px] rounded-[6px] text-black' placeholder='Search Movie'></input>
               <img className='absolute right-[23px] top-[50%] translate-y-[-50%] w-[25px] cursor-pointer' src='./search.svg' />
             </div>
-            <div className='flex flex-col justify-center items-center mt-[20px]'>
+            <div className='flex flex-col justify-center items-center mt-[20px] xsm:mt-[30px] sm:mt-[30px]'>
               <img className='w-[100%]' src='./ratingMoviePoster.png' />
-              <div className='w-full'>
+              <div className='w-full xsm:mt-[10px] sm:mt-[10px]'>
                 <div className='flex justify-between px-2 mt-[10px]'>
                   <p className='text-[18px] font-[600] leading-[30px]'>{movie?.name}</p>
                   <p className='text-[18px] font-[600] leading-[30px]'>{`${movie.rating} (${movie.numOfRating})`}</p>

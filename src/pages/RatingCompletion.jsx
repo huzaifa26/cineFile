@@ -12,7 +12,7 @@ export default function RatingCompletion() {
   const [movie, setMovie] = useState(location.state.data);
   const [review, setReview] = useState(location.state.review);
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const formRef = useRef();
 
@@ -40,9 +40,9 @@ export default function RatingCompletion() {
         'reviewed': reviewdArray
       });
       queryClient.invalidateQueries(['movies']);
-      return true 
+      return true
     },
-     onSuccess: (data) => {
+    onSuccess: (data) => {
       toast.success("Review Submitted!");
       navigate("/home");
     },
@@ -63,34 +63,34 @@ export default function RatingCompletion() {
 
   return (
     <div className='mb-[92px] flex flex-col'>
-      <div className='h-[250px]' style={{ backgroundImage: "url('./ratingMain.png')" }}>
+      <div className='h-[250px] xsm:h-[80px] sm:h-[80px] sm:mb-[20px] xsm:mb-[20px]' style={{ backgroundImage: "url('./ratingMain.png')" }}>
         <div className='h-full w-full bg-[rgba(0,0,0,0.9)] flex items-center justify-center'>
-          <h1 className=''>Rating Completion</h1>
+          <h1 className='text-custom-30'>Rating Completion</h1>
         </div>
       </div>
 
       <div>
-        <div className='w-[542px] pt-2 m-auto'>
+        <div className='w-[542px] pt-2 m-auto sm:w-[80%] xsm:w-[90%]'>
           <img className='w-[542px] h-[476px]' src='./ratingMoviePoster.png' />
-          <div className='flex justify-between mt-[10px]'>
+          <div className='flex justify-between mt-[10px] xsm:px-[10px] sm:px-[5px]'>
             <p className='text-[32px] font-[600] leading-[36px]'>Joker</p>
             <p className='text-[32px] font-[600] leading-[36px]'>Score</p>
           </div>
         </div>
       </div>
 
-      <form onSubmit={formSubmitHandler} ref={formRef} className='m-auto mt-[59px]'>
+      <form onSubmit={formSubmitHandler} ref={formRef} className=' m-auto mt-[59px]'>
         <textarea name='feedback' className='pl-[29px] pt-[27px] text-black resize-none w-[92.24vw] h-[406px] border-[3px] border-[red] font-[400] text-[24px] leading-[30px] tracking-[2%]' placeholder='Write Review Here....'></textarea>
       </form>
-      <div className='w-[92.24vw] m-auto flex justify-center relative mt-[55px]'>
+      <div className='w-[92.24vw] m-auto flex justify-center sm:justify-end relative mt-[55px] '>
         <div className='flex items-center gap-[20px] absolute left-0'>
           <RiVideoAddLine className='w-[60px] h-[60px]' />
-          <p className='font-[600] text-[28px] leading-[32px]'>Record a Video Review</p>
+          <p className='font-[600] text-[28px] leading-[32px] sm:text-[16px]'>Record a Video Review</p>
         </div>
-        {movieReviewMutation.isLoading?
-        <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center h-[68px] bg-[red] '><img className='w-[30px] m-auto' src='./WhiteLoading.svg'/></button>
-        :
-        <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center h-[68px] bg-[red] '>SUBMIT</button>
+        {movieReviewMutation.isLoading ?
+          <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center h-[68px] bg-[red] '><img className='w-[30px] m-auto' src='./WhiteLoading.svg' /></button>
+          :
+          <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center  h-[68px] bg-[red] '>SUBMIT</button>
         }
       </div>
     </div>
