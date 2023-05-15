@@ -12,8 +12,8 @@ export default function Footer() {
           </div>
           <div className='mt-[16px]'>
             <h4 className='text-[20px] font-[500] leading-[23.44px] mb-[10px]'>Office Hour</h4>
-            <p className='w-[13.3vw] text-[16px]'>Monday - Sunday</p>
-            <p className='w-[13.3vw] text-[16px]'>10.00 - 18.00</p>
+            <p className='w-[255.36px] text-[16px]'>Monday - Sunday</p>
+            <p className='w-[255.36px] text-[16px]'>10.00 - 18.00</p>
           </div>
         </div>
         <div>
@@ -21,21 +21,21 @@ export default function Footer() {
           <div className='bg-white w-[60px] h-[1px] my-[14px]'></div>
           <div className='flex flex-col gap-[15px]'>
             <div className='flex'>
-              <p className='w-[97px] font-[500] text-[16px] mr-[20px]'>Phone</p>
+              <p className='w-[130px] font-[500] text-[16px] mr-[20px]'>Phone</p>
               <p>022-20277564</p>
             </div>
 
             <div className='flex'>
-              <p className='w-[97px] font-[500] text-[16px] mr-[20px]'>Service Center</p>
+              <p className='w-[130px] font-[500] text-[16px] mr-[20px]'>Service Center</p>
               <p>0811-233-8899</p>
             </div>
 
             <div className='flex'>
-              <p className='w-[97px] font-[500] text-[16px] mr-[20px]'>Customer Service</p>
+              <p className='w-[130px] font-[500] text-[16px] mr-[20px]'>Customer Service</p>
               <p>0811-235-9988</p>
             </div>
 
-            <div className='flex gap-[25px]'>
+            <div className='flex gap-[25px] xsm:justify-center'>
               <img src='./facebook.svg' />
               <img src='./Instagram.svg' />
               <img src='./Twitter.svg' />

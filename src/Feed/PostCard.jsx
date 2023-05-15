@@ -2,25 +2,46 @@ import React, { useEffect, useState } from 'react'
 import moment from 'moment';
 import { collection, doc, updateDoc } from 'firebase/firestore';
 import { useQueryClient } from '@tanstack/react-query';
+import { db } from '../utils/firebase';
 
 
-export default function PostCard({post}) {
-  const timeAgo=moment(post.createdAt).fromNow();
+export default function PostCard({ post }) {
+  const timeAgo = moment(post.createdAt).fromNow();
 
   const [user, setUser] = useState();
   const queryClient = useQueryClient();
 
   useEffect(() => {
     setUser(queryClient.getQueryData(["user"]));
+
+    const unsubscribe = queryClient.getQueryCache().subscribe(() => {
+      setUser(queryClient.getQueryData(["user"]));
+    })
+
+    return ()=>{
+      unsubscribe();
+    }
   }, [queryClient])
 
-  const likeClickHandler=async ()=>{
-    const postRef=collection(doc(db,post.id));
-    await updateDoc(postRef,{
-      likeCount:post.likeCount+1,
-      likedBy:[...post.likedBy,user]
+  const likeClickHandler = async () => {
+    const postRef = doc(db, 'posts', post.id);
+    await updateDoc(postRef, {
+      likeCount: post.likeCount + 1,
+      likedBy: post?.likedBy ? [...post.likedBy, user] : [user]
+    });
+
+    const userRef = doc(db, 'users', user.uid);
+    const useras = await updateDoc(userRef, {
+      liked: user?.liked ? [...user.liked, post.id] : [post.id]
     })
+
+    let u = { ...user };
+    u.liked = user?.liked ? [...user.liked, post.id] : [post.id]
+    queryClient.invalidateQueries(['user']);
+    queryClient.invalidateQueries(['posts']);
   }
+
+  console.log(user);
 
   return (
     <div className='px-[3.802vw]'>
@@ -46,9 +67,9 @@ export default function PostCard({post}) {
 
       <div className=''>
         <div className='flex max-w-[100%] overflow-auto'>
-        <img className='min-w-[92.188vw] object-cover' src={post.url[0]} />
-        <img className='min-w-[92.188vw] object-cover' src={post.url[0]} />
-        {/* {post.url.map((url)=>{
+          <img className='min-w-[92.188vw] object-cover' src={post.url[0]} />
+          <img className='min-w-[92.188vw] object-cover' src={post.url[0]} />
+          {/* {post.url.map((url)=>{
           return <img className='w-[92.188vw] object-cover' src={url} />
         })} */}
         </div>
