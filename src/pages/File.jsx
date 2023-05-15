@@ -18,7 +18,7 @@ export default function File() {
       setRatedMovie(() => {
         let user = queryClient.getQueryData(["user"])
         let movieArr = queryClient.getQueryData(['movies'])?.filter((movie) => {
-          if (user?.reviewed.includes(movie.id)) {
+          if (user?.reviewed?.includes(movie.id)) {
             return movie
           }
         })
@@ -43,7 +43,7 @@ export default function File() {
     setRatedMovie(() => {
       let user = queryClient.getQueryData(["user"])
       let movieArr = queryClient.getQueryData(['movies'])?.filter((movie) => {
-        if (user?.reviewed.includes(movie.id)) {
+        if (user?.reviewed?.includes(movie.id)) {
           return movie
         }
       })
