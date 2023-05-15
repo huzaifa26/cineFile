@@ -104,9 +104,9 @@ export default function Rating() {
     navigate('/rating-completion', { state: { data: m, review } });
   }
 
-  // if (user?.reviewed.includes(movie.id)) {
-  //   return navigate("/home");
-  // }
+  if (user?.reviewed.includes(movie.id)) {
+    return navigate("/home");
+  }
 
   return (
     <>
