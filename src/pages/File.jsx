@@ -75,7 +75,7 @@ export default function File() {
   return (
     <div className='w-[92%] m-auto pb-[54px]'>
       <div>
-        <div className='flex justify-between items-center mt-[54px]'>
+        <div className='flex justify-between items-center mt-[70px]'>
           <h1 className='font-[700] text-custom-32 h-[59px] leading-[36px] tracking-[2%] text-white border-[red] border-b-[5px]'>Rated Movies</h1>
           <p onClick={() => setRecentSeeAll(!recentSeeAll)} className='cursor-pointer font-[700] text-custom-32 leading-[36px] tracking-[2%] text-[red] h-[40px] border-[red] border-b-[5px]'>{recentSeeAll ? 'See less' : 'See all'}</p>
         </div>

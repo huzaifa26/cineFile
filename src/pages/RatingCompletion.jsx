@@ -90,7 +90,7 @@ export default function RatingCompletion() {
         {movieReviewMutation.isLoading ?
           <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center h-[68px] bg-[red] '><img className='w-[30px] m-auto' src='./WhiteLoading.svg' /></button>
           :
-          <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center  h-[68px] bg-[red] '>SUBMIT</button>
+          <button type='submit' onClick={formSubmitHandler} className='w-[13.645833333333334vw] min-w-[100px] place-self-center  h-[68px] bg-[red] rounded-[4px]'>SUBMIT</button>
         }
       </div>
     </div>
