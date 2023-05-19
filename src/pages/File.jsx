@@ -86,9 +86,9 @@ export default function File() {
             var remainingMinutes = minutes % 60;
 
             return (
-              <Link to={'/rating'} state={movie}>
+              <Link className='w-fit' to={'/rating'} state={movie}>
                 <div>
-                  <img className='w-full object-cover' src={movie.image} />
+                  <img className='w-[500px] object-fill h-[500px]' src={movie.image} />
                   <div className='flex justify-between mt-[22px] mb-[10px]'>
                     <h3 className='font-[600] text-[28px] leading-[32px] tracking-[2%]'>{movie.name}</h3>
                     <p className='font-[600] text-[28px] leading-[32px] tracking-[2%]' >{`${movie.rating} (${movie.numOfRating})`}</p>
@@ -113,7 +113,7 @@ export default function File() {
 
             return (
               <div >
-                <img className='w-full object-cover' src={movie.image} />
+                <img className='w-[500px] object-fill h-[500px]' src={movie.image} />
                 <div className='flex justify-between mt-[22px] mb-[10px]'>
                   <h3 className='font-[600] text-[28px] leading-[32px] tracking-[2%]'>{movie.name}</h3>
                   <p className='font-[600] text-[28px] leading-[32px] tracking-[2%]' >{`${movie.rating} (${movie.numOfRating})`}</p>

@@ -23,7 +23,6 @@ export default function Home() {
             return movie
           }
         })
-        console.log(movieArr)
         return movieArr
       })
 
@@ -38,7 +37,6 @@ export default function Home() {
             return b.numOfRatings - a.numOfRatings;
           }
         });
-        console.log(m)
         return m
       })
     });
@@ -50,7 +48,6 @@ export default function Home() {
           return movie
         }
       })
-      console.log(movieArr)
       return movieArr
     })
 
@@ -65,7 +62,6 @@ export default function Home() {
           return b.numOfRatings - a.numOfRatings;
         }
       });
-      console.log(m)
       return m
     })
 
@@ -94,9 +90,9 @@ export default function Home() {
             var remainingMinutes = minutes % 60;
 
             return (
-              <Link to={'/rating'} state={movie}>
+              <Link className='w-fit' to={'/rating'} state={movie}>
                 <div>
-                  <img className='w-full object-cover' src={movie.image} />
+                  <img className='w-[500px] object-fill h-[500px]' src={movie.image} />
                   <div className='flex justify-between mt-[22px] mb-[10px]'>
                     <h3 className='font-[600] text-[28px] leading-[32px] tracking-[2%]'>{movie.name}</h3>
                     <p className='font-[600] text-[28px] leading-[32px] tracking-[2%]' >{`${movie.rating} (${movie.numOfRating})`}</p>
@@ -123,10 +119,10 @@ export default function Home() {
             var remainingMinutes = minutes % 60;
 
             return (
-              <Link to={'/rating'} state={movie}>
-                <div>
-                  <img className='w-full object-cover' src={movie.image} />
-                  <div className='flex justify-between mt-[22px] mb-[10px]'>
+              <Link className='w-fit' to={'/rating'} state={movie}>
+                <div className='max-w-[500px]'>
+                  <img className='w-[500px] object-fill h-[500px]' src={movie.image} />
+                  <div className='flex justify-between mt-[22px] mb-[10px] max-w-[500px]'>
                     <h3 className='font-[600] text-[28px] leading-[32px] tracking-[2%]'>{movie.name}</h3>
                     <p className='font-[600] text-[28px] leading-[32px] tracking-[2%]' >{`${movie.rating} (${movie.numOfRating})`}</p>
                   </div>

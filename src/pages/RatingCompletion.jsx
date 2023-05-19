@@ -23,13 +23,14 @@ export default function RatingCompletion() {
     setUser(queryClient.getQueryData(["user"]));
   }, [queryClient])
 
-  console.log(user);
 
   const movieReviewMutation = useMutation({
     mutationFn: async (data) => {
+      let u={...user};
       const movieRef = doc(db, 'movies', movie.id);
       const userRef = doc(db, 'users', user.uid);
-      let reviewdArray = user.reviewed ? [...user.reviewed, movie.id] : [movie.id]
+      let reviewdArray = u.reviewed ? [...u.reviewed, movie.id] : [movie.id]
+      u.reviewed=reviewdArray
 
       await updateDoc(movieRef, {
         'reviews': data.reviews,
@@ -39,6 +40,7 @@ export default function RatingCompletion() {
       await updateDoc(userRef, {
         'reviewed': reviewdArray
       });
+      queryClient.setQueryData(['user'],u);
       queryClient.invalidateQueries(['movies']);
       return true
     },
@@ -70,11 +72,11 @@ export default function RatingCompletion() {
       </div>
 
       <div>
-        <div className='w-[542px] pt-2 m-auto sm:w-[80%] xsm:w-[90%]'>
-          <img className='w-[542px] h-[476px]' src={movie.image} />
+        <div className='w-[26.042vw] min-w-[300px] pt-2 m-auto sm:w-[80%] xsm:w-[90%]'>
+          <img className='w-[500px] h-[500px] object-fill' src={movie.image} />
           <div className='flex justify-between mt-[10px] xsm:px-[10px] sm:px-[5px]'>
-            <p className='text-[32px] font-[600] leading-[36px]'>{movie.name}</p>
-            <p className='text-[32px] font-[600] leading-[36px]'>Score : {movie.rating}</p>
+            <p className='text-[24px] font-[600] leading-[30px]'>{movie.name}</p>
+            <p className='text-[24px] font-[600] leading-[30px]'>Score : {movie.rating}</p>
           </div>
         </div>
       </div>
@@ -85,12 +87,12 @@ export default function RatingCompletion() {
       <div className='w-[92.24vw] m-auto flex justify-center sm:justify-end relative mt-[55px] '>
         <div className='flex items-center gap-[20px] absolute left-0'>
           <RiVideoAddLine className='w-[60px] h-[60px]' />
-          <p className='font-[600] text-[28px] leading-[32px] sm:text-[16px]'>Record a Video Review</p>
+          <p className='font-[600] text-[24px] leading-[30px] sm:text-[16px]'>Record a Video Review</p>
         </div>
         {movieReviewMutation.isLoading ?
-          <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center h-[68px] bg-[red] '><img className='w-[30px] m-auto' src='./WhiteLoading.svg' /></button>
+          <button type='submit' onClick={formSubmitHandler} className='w-[262px] place-self-center h-[68px] bg-[red]'><img className='w-[30px] m-auto' src='./WhiteLoading.svg' /></button>
           :
-          <button type='submit' onClick={formSubmitHandler} className='w-[13.645833333333334vw] min-w-[100px] place-self-center  h-[68px] bg-[red] rounded-[4px]'>SUBMIT</button>
+          <button type='submit' onClick={formSubmitHandler} className='w-[13.645833333333334vw] min-w-[100px] place-self-center text-[24px] h-[68px] bg-[red] rounded-[4px]'>SUBMIT</button>
         }
       </div>
     </div>

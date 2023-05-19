@@ -104,6 +104,7 @@ export default function Rating() {
     navigate('/rating-completion', { state: { data: m, review } });
   }
 
+  console.log(user?.reviewed, movie.id);
   if (user?.reviewed?.includes(movie.id)) {
     return navigate("/home");
   }
@@ -129,13 +130,13 @@ export default function Rating() {
             })}
             <button onClick={showSubCategoryModal} className='text-black bg-white w-[13.64vw] rounded-[4px] h-[40px] min-w-[200px] mt-[20px] block font-[400] text-[18px]'>+ Sub categories</button>
           </div>
-          <div className='w-[28.220000000000006vw] sm:w-[80%] xsm:w-[90%] mt-[80px] xsm:mt-[20px] sm:mt-[20px]'>
+          <div className='w-[26.042vw] min-w-[300px] sm:w-[80%] xsm:w-[90%] mt-[80px] xsm:mt-[20px] sm:mt-[20px]'>
             <div className='relative'>
               <input className='h-[40px] w-[100%] px-[24px] rounded-[6px] text-black' placeholder='Search Movie'></input>
               <img className='absolute right-[23px] top-[50%] translate-y-[-50%] w-[25px] cursor-pointer' src='./search.svg' />
             </div>
             <div className='flex flex-col justify-center items-center mt-[20px] xsm:mt-[30px] sm:mt-[30px]'>
-              <img className='w-[100%]' src={movie?.image} />
+              <img className='w-[500px] h-[500px] object-fill' src={movie?.image} />
               <div className='w-full xsm:mt-[10px] sm:mt-[10px]'>
                 <div className='flex justify-between px-2 mt-[10px]'>
                   <p className='text-[18px] font-[600] leading-[30px]'>{movie?.name}</p>

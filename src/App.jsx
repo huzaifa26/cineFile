@@ -12,6 +12,7 @@ import FeedMain from './Feed/FeedMain'
 import MoviesNews from './Feed/MoviesNews'
 import MoviesPreview from './Feed/MoviesPreview'
 import Protected from './utils/Protected'
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path='news' element={<MoviesNews></MoviesNews>}></Route>
               <Route path='preview' element={<MoviesPreview></MoviesPreview>}></Route>
             </Route>
+            <Route path="profile" element={<Profile></Profile>}></Route>
           </Route>
         </Route>
       </Routes>
