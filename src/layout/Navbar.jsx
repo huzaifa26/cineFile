@@ -7,37 +7,44 @@ export default function Navbar() {
   const [showOptions, setShowOptions] = useState(false)
   const navigate = useNavigate()
 
-  const logoutHander = async() => {
+  const logoutHander = async () => {
     localStorage.removeItem("user");
     await signOut(auth);
     navigate('/');
   }
 
-  const hide=()=>{setShowOptions(false)}
+  const hide = () => { setShowOptions(false) }
 
-  useEffect(()=>{
-    document.addEventListener('click',hide);
-    return ()=>{
-      document.removeEventListener('click',hide);
+  useEffect(() => {
+    document.addEventListener('click', hide);
+    return () => {
+      document.removeEventListener('click', hide);
     }
-  },[])
+  }, [])
 
   return (
     <div>
       <div className='w-[92%] xsm:w-[99%] m-auto h-[100px] flex items-center justify-between'>
         <img className='w-[180px]' src='./Logo.svg'></img>
-        <div onClick={(e) => {setShowOptions(!showOptions);e.stopPropagation()}} className='flex gap-[1.042vw] relative'>
+        <div onClick={(e) => { setShowOptions(!showOptions); e.stopPropagation() }} className='flex gap-[1.042vw] relative'>
           <img className='w-[60px]' src='./profilePic.svg'></img>
           <img className='w-[20px] cursor-pointer' src='./dropDown.svg'></img>
           {showOptions &&
             <>
-              <div onClick={(e) => e.stopPropagation()} className="transition-all  border-solid border-b-[#525252] border-b-[12px] border-x-transparent border-x-[12px] border-t-0 absolute z-[100000] top-[calc(100%+3px)] right-[2px]"></div>
+              <div onClick={(e) => e.stopPropagation()} className="transition-all border-solid border-b-[#525252] border-b-[12px] border-x-transparent border-x-[12px] border-t-0 absolute z-[100000] top-[calc(100%+3px)] right-[2px]"></div>
               <div onClick={(e) => e.stopPropagation()} className='w-[18.333333333333332vw]  overflow-hidden min-w-[280px] bg-white dark:text-white text-black  dark:bg-[#525252] absolute z-[100000] rounded-[10px] top-[calc(100%+15px)] right-[-12px]'>
                 <div className='m-auto divide-y-[1px] divide-[rgba(255,255,255,0.5)] flex w-full flex-col '>
                   <div className='cursor-pointer hover:font-[500] hover:bg-[#cccccc21]'>
                     <Link to={'/profile'}>
                       <p className='py-[14.86px] text-custom-18 px-[18px]'>
                         Profile
+                      </p>
+                    </Link>
+                  </div>
+                  <div className='cursor-pointer hover:font-[500] hover:bg-[#cccccc21]'>
+                    <Link to={'/survey'}>
+                      <p className='py-[14.86px] text-custom-18 px-[18px]'>
+                        Survey
                       </p>
                     </Link>
                   </div>

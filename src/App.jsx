@@ -14,6 +14,7 @@ import MoviesPreview from './Feed/MoviesPreview'
 import Protected from './utils/Protected'
 import Profile from './pages/Profile'
 import ShowRating from './pages/ShowRating'
+import Survery from './pages/Survery'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             </Route>
             <Route path="profile" element={<Profile ></Profile>}></Route>
             <Route path="show-rating" element={<ShowRating ></ShowRating>}></Route>
+            <Route path="survey" element={<Survery ></Survery>}></Route>
           </Route>
         </Route>
       </Routes>
