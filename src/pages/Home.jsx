@@ -90,7 +90,7 @@ export default function Home() {
             var remainingMinutes = minutes % 60;
 
             return (
-              <Link className='w-fit' to={'/rating'} state={movie}>
+              <Link className='w-fit' to={'/show-rating'} state={movie}>
                 <div>
                   <img className='w-[500px] object-fill h-[500px]' src={movie.image} />
                   <div className='flex justify-between mt-[22px] mb-[10px]'>

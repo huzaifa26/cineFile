@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { doc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { RiVideoAddLine } from "react-icons/ri";
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -11,7 +11,6 @@ export default function RatingCompletion() {
   const location = useLocation();
   const [movie, setMovie] = useState(location.state.data);
   const [review, setReview] = useState(location.state.review);
-  console.log(location.state.data);
   const navigate = useNavigate()
 
   const formRef = useRef();
@@ -26,22 +25,30 @@ export default function RatingCompletion() {
 
   const movieReviewMutation = useMutation({
     mutationFn: async (data) => {
-      let u={...user};
+      let u = { ...user };
       const movieRef = doc(db, 'movies', movie.id);
-      const userRef = doc(db, 'users', user.uid);
+      const userRef = doc(db, 'users', u.uid);
       let reviewdArray = u.reviewed ? [...u.reviewed, movie.id] : [movie.id]
-      u.reviewed=reviewdArray
+      u.reviewed = reviewdArray;
 
-      await updateDoc(movieRef, {
-        'reviews': data.reviews,
-        'rating': data.rating,
-        'numOfRating': data.numOfRating,
-      });
-      await updateDoc(userRef, {
-        'reviewed': reviewdArray
-      });
-      queryClient.setQueryData(['user'],u);
-      queryClient.invalidateQueries(['movies']);
+
+      try {
+        await updateDoc(movieRef, {
+          'reviews': data.reviews,
+          'rating': data.rating,
+          'numOfRating': data.numOfRating,
+        });
+        await updateDoc(userRef, {
+          'reviewed': arrayUnion(movie.id)
+        });
+        localStorage.setItem('user',JSON.stringify(u));
+        queryClient.setQueryData(['user'], u);
+        queryClient.invalidateQueries(['movies']);
+      } catch (e) {
+        throw new Error(e)
+      }
+
+
       return true
     },
     onSuccess: (data) => {

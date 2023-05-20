@@ -1,13 +1,16 @@
+import { signOut } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { auth } from '../utils/firebase'
 
 export default function Navbar() {
   const [showOptions, setShowOptions] = useState(false)
   const navigate = useNavigate()
 
-  const logoutHander = () => {
+  const logoutHander = async() => {
     localStorage.removeItem("user");
-    navigate('/')
+    await signOut(auth);
+    navigate('/');
   }
 
   const hide=()=>{setShowOptions(false)}

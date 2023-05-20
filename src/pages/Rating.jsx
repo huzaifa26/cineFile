@@ -84,7 +84,6 @@ export default function Rating() {
   const calculateRatingHandler = () => {
     let rating = 0
     categories.forEach((obj) => {
-      console.log(obj.rating)
       rating = rating + obj.rating
     })
     rating = rating / categories.length
@@ -104,7 +103,6 @@ export default function Rating() {
     navigate('/rating-completion', { state: { data: m, review } });
   }
 
-  console.log(user?.reviewed, movie.id);
   if (user?.reviewed?.includes(movie.id)) {
     return navigate("/home");
   }

@@ -50,12 +50,10 @@ export default function FeedMain() {
   const mutation = useMutation({
     mutationFn: async (data) => {
       setLoading(true);
-      console.log(images)
       const imagesArray = await Promise.all(images?.map(async (file, index) => {
         const storageRef = ref(storage, `/movie/${file.name}`);
         const uploadTask = await uploadBytes(storageRef, file);
         const url = await getDownloadURL(storageRef);
-        console.log(url);
         return url
       })).then(async (urls) => {
         data.url = urls;
@@ -120,7 +118,7 @@ export default function FeedMain() {
                   </svg>
                   <p className='text-black font-[600] text-[20px] xsm:text-[16px] leading-[24px]'>Post Image</p>
                 </label>
-                <input multiple accept="image/*" onChange={(e) => { console.log(e.target.files[0]); setImages((prev) => [...prev, e.target.files[0]]); }} className='hidden' type='file' id="file" />
+                <input multiple accept="image/*" onChange={(e) => { setImages((prev) => [...prev, e.target.files[0]]); }} className='hidden' type='file' id="file" />
               </div>
             </div>
             {

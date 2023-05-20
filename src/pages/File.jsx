@@ -80,14 +80,17 @@ export default function File() {
           <p onClick={() => setRecentSeeAll(!recentSeeAll)} className='cursor-pointer font-[700] text-custom-32 leading-[36px] tracking-[2%] text-[red] h-[40px] border-[red] border-b-[5px]'>{recentSeeAll ? 'See less' : 'See all'}</p>
         </div>
         <div className='grid grid-cols-3 xsm:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xsm:gap-y-[20px] xsm:px-[10px] gap-[73px] mt-[30px]'>
-          {ratedMovie?.map((movie) => {
+          {ratedMovie?.map((movie,index) => {
+            if (index > 2 && recentSeeAll === false) {
+              return
+            }
             var minutes = movie?.movieTime;
             var hours = Math.floor(minutes / 60);
             var remainingMinutes = minutes % 60;
 
             return (
               <Link className='w-fit' to={'/rating'} state={movie}>
-                <div>
+                <div className='w-fit'>
                   <img className='w-[500px] object-fill h-[500px]' src={movie.image} />
                   <div className='flex justify-between mt-[22px] mb-[10px]'>
                     <h3 className='font-[600] text-[28px] leading-[32px] tracking-[2%]'>{movie.name}</h3>
@@ -106,13 +109,16 @@ export default function File() {
           <p onClick={() => setSugestedSeeAll(!sugestedSeeAll)} className='cursor-pointer font-[700] text-custom-32 leading-[36px] tracking-[2%] text-[red] h-[40px] border-[red] border-b-[5px]'>{sugestedSeeAll ? 'See less' : 'See all'}</p>
         </div>
         <div className='grid grid-cols-3 xsm:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xsm:gap-y-[20px] xsm:px-[10px] gap-[73px] mt-[30px]'>
-          {wantToWatch?.map((movie) => {
+          {wantToWatch?.map((movie,index) => {
+            if (index > 2 && sugestedSeeAll === false) {
+              return
+            }
             var minutes = movie?.movieTime;
             var hours = Math.floor(minutes / 60);
             var remainingMinutes = minutes % 60;
 
             return (
-              <div >
+              <div className='w-fit'>
                 <img className='w-[500px] object-fill h-[500px]' src={movie.image} />
                 <div className='flex justify-between mt-[22px] mb-[10px]'>
                   <h3 className='font-[600] text-[28px] leading-[32px] tracking-[2%]'>{movie.name}</h3>
